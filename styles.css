@@ -47,6 +47,13 @@ body {
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
+/* Make logos visible in dark mode */
+.dark .card__logo {
+  /* invert dark colors to light, then boost brightness */
+  filter: invert(1) brightness(1.2);
+}
+
+
 /* .light {
   --clr-bg: #fcfcfc;
   --clr-bg-alt: #fff;
