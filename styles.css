@@ -346,14 +346,15 @@ main {
 }
   
 
-.education {
+ /* .education {
     padding: 2em;
-    margin: 0 auto; /* Center the project horizontally */
+    margin: 0 auto; 
     text-align: center;
     box-shadow: var(--shadow);
     transition: transform 0.2s linear;
-    margin-bottom: 2em; /* Add margin for vertical spacing between projects */
-}
+    margin-bottom: 2em; 
+}  */
+
 
 .education_grid {
     max-width: 1100px;
@@ -372,13 +373,16 @@ main {
   }
 
 .project__description {
-  margin-top: 1em;
+  /* margin-top: 1em; */
+  max-width: 720px;
+  margin: 1em auto;
 }
 
 .work__description {
-  list-style-type: disc;
-  margin-top: 1em;
-  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+  text-align: center;
 }
 
 .work__description ul {
@@ -387,7 +391,20 @@ main {
 }
 
 .work__description li {
-  margin-bottom: 0.5em; /* Adjust spacing between list items */
+  display: inline-block;
+  margin: 0 1.5em;
+  position: relative;
+  padding-left: 1em;
+  font-size: 0.95rem;
+  color: var(--clr-fg-alt);
+}
+
+/* add a custom bullet (•) before each item */
+.work__description li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--clr-primary);
 }
 
 .company {
@@ -512,4 +529,43 @@ main {
   .scroll-container {
     display: none;
   }
+}
+
+/* Make each project card a column flexbox so the link wrapper sits at bottom */
+
+/* Space above the icon and center it */
+.project__links {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Small icon */
+.project__icon {
+  width: 1.5rem;
+  height: auto;
+}
+
+
+/* --------------------------------------------------
+   Card containers: less bottom padding, allow logos
+   -------------------------------------------------- */
+.project,
+.education {
+  position: relative;                /* for child absolute positioning */
+  padding: 1.8em 2em 1em;           /* top/right/bottom (smaller) */
+  margin-bottom: 2em;                /* if you still want vertical spacing */
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s linear;
+}
+
+.card__logo {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  width: 100px;           /* or whatever width fits */
+  height: auto;          /* preserve aspect ratio */
+  background: var(--clr-bg-alt);   /* white background behind transparent PNG */
+  padding: 0.4em;        /* optional inner padding */
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
 }

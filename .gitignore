@@ -1,0 +1,7 @@
+# Ignore backup_files folder
+backup_files/
+
+# Optional: Node and common system files (if relevant)
+node_modules/
+.DS_Store
+*.log

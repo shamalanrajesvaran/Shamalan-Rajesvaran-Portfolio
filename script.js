@@ -1,63 +1,58 @@
-const body = document.body
+// script.js
 
-const btnTheme = document.querySelector('.fa-moon')
-const btnHamburger = document.querySelector('.fa-bars')
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const themeIcon = document.getElementById("btn-theme");
+  const hamburgerBtn = document.querySelector(".nav__hamburger");
+  const hamburgerIcon = hamburgerBtn.querySelector("i");
+  const navList = document.querySelector(".nav__list");
+  const scrollTopBtn = document.querySelector(".scroll-top");
 
-const addThemeClass = (bodyClass, btnClass) => {
-  body.classList.add(bodyClass)
-  btnTheme.classList.add(btnClass)
-}
+  const THEME_KEY = "portfolio-theme";
 
-const getBodyTheme = localStorage.getItem('portfolio-theme')
-const getBtnTheme = localStorage.getItem('portfolio-btn-theme')
+  // 1) Initialize theme
+  let savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme !== "dark" && savedTheme !== "light") {
+    // default
+    savedTheme = "light";
+    localStorage.setItem(THEME_KEY, "light");
+  }
+  // apply to body and icon
+  body.classList.add(savedTheme);
+  if (savedTheme === "dark") {
+    themeIcon.classList.replace("fa-moon", "fa-sun");
+  } else {
+    themeIcon.classList.replace("fa-sun", "fa-moon");
+  }
 
-addThemeClass(getBodyTheme, getBtnTheme)
+  // 2) Theme toggle handler
+  themeIcon.addEventListener("click", () => {
+    if (body.classList.contains("dark")) {
+      // switch to light
+      body.classList.replace("dark", "light");
+      themeIcon.classList.replace("fa-sun", "fa-moon");
+      localStorage.setItem(THEME_KEY, "light");
+    } else {
+      // switch to dark
+      body.classList.replace("light", "dark");
+      themeIcon.classList.replace("fa-moon", "fa-sun");
+      localStorage.setItem(THEME_KEY, "dark");
+    }
+  });
 
-const isDark = () => body.classList.contains('dark')
+  // 3) Hamburger menu toggle
+  hamburgerBtn.addEventListener("click", () => {
+    hamburgerIcon.classList.toggle("fa-bars");
+    hamburgerIcon.classList.toggle("fa-times");
+    navList.classList.toggle("display-nav-list");
+  });
 
-const setTheme = (bodyClass, btnClass) => {
-
-	body.classList.remove(localStorage.getItem('portfolio-theme'))
-	btnTheme.classList.remove(localStorage.getItem('portfolio-btn-theme'))
-
-  addThemeClass(bodyClass, btnClass)
-
-	localStorage.setItem('portfolio-theme', bodyClass)
-	localStorage.setItem('portfolio-btn-theme', btnClass)
-}
-
-const toggleTheme = () =>
-	isDark() ? setTheme('light', 'fa-moon') : setTheme('dark', 'fa-sun')
-
-btnTheme.addEventListener('click', toggleTheme)
-
-const displayList = () => {
-	const navUl = document.querySelector('.nav__list')
-
-	if (btnHamburger.classList.contains('fa-bars')) {
-		btnHamburger.classList.remove('fa-bars')
-		btnHamburger.classList.add('fa-times')
-		navUl.classList.add('display-nav-list')
-	} else {
-		btnHamburger.classList.remove('fa-times')
-		btnHamburger.classList.add('fa-bars')
-		navUl.classList.remove('display-nav-list')
-	}
-}
-
-btnHamburger.addEventListener('click', displayList)
-
-const scrollUp = () => {
-	const btnScrollTop = document.querySelector('.scroll-top')
-
-	if (
-		body.scrollTop > 500 ||
-		document.documentElement.scrollTop > 500
-	) {
-		btnScrollTop.style.display = 'block'
-	} else {
-		btnScrollTop.style.display = 'none'
-	}
-}
-
-document.addEventListener('scroll', scrollUp)
+  // 4) Scroll-to-top button
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 500) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  });
+});
