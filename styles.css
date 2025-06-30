@@ -298,6 +298,8 @@ main {
 .about__desc {
   font-size: 1rem;
   max-width: 600px;
+  margin: 2.4em auto 0;  /* moves the top margin here and centers block */
+  text-align: center;    /* center the text */
 }
 
 .about__desc,
